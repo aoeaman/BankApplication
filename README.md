@@ -11,7 +11,7 @@ Use cases to be taken into consideration while developing the application:
     IMPS- 6%
   Add default accepted currency as INR
   A page where user will get options to login as account holder or bank staff
-    If User is bank staff then he can perform following actions
+	If User is bank staff then he can perform following actions
       Create new account and give username and password to account holder
       Update / Delete account at any time
       Add new Accepted currency with exchange rate 
