@@ -27,12 +27,12 @@ namespace BankTask
                         {
                             {ChargeType.RTGS,2 },{ChargeType.IMPS,6}
                         },
-                        Currencies=new List<Models.Currency>() ,
+                        Currencies=new List<Currency>() ,
                         Accounts = new List<Account>(),
                         AccountHolders=new List<AccountHolder>(),
                         Employees=new List<Employee>()
                     };
-                    bank.Currencies.Add(new Models.Currency {Name="INR",Exchangerate=1 });
+                    bank.Currencies.Add(new Currency {Name="INR",Exchangerate=1 });
                     banks.Add(bank);
                     return true;
                 }
@@ -51,7 +51,7 @@ namespace BankTask
         {
             if (!bank.Currencies.Any(Element=>Element.Name==name))
             {
-                bank.Currencies.Add(new Models.Currency {Name=name,Exchangerate=exchangeValue });
+                bank.Currencies.Add(new Currency {Name=name,Exchangerate=exchangeValue });
                 return true;
             }
             else

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BankTask.Models
+namespace BankTask
 {
     public class Currency
     {
