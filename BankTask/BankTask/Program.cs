@@ -135,7 +135,7 @@ namespace BankTask
                                                     Console.WriteLine("Create Passowrd");
                                                     string passWord = Tools.ReadPassword();
                                                     Console.WriteLine();
-                                                    string GetUserID = accountService.CreateAccount(CurrentBank, Name, Username, passWord);
+                                                    string GetUserID = accountService.Create(CurrentBank, Name, Username, passWord);
                                                     if (GetUserID == null)
                                                     {
                                                         Console.WriteLine("Username Already Exists:");

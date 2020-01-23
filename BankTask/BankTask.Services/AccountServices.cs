@@ -8,7 +8,7 @@ namespace BankTask
 {
     public class AccountServices :IAccountServices
     {
-        public string CreateAccount(Bank bank, string name, string userName, string password)
+        public string Create(Bank bank, string name, string userName, string password)
         {
             if (bank.AccountHolders.Exists(Element => string.Equals(Element.UserName, userName)) == false)
             {
@@ -18,7 +18,8 @@ namespace BankTask
                 {
                     BankID = bank.ID.ToUpper(),
                     ID = ID.ToUpper(),
-                    Funds = 0
+                    Funds = 0,
+                    Transactions = new List<Transaction>()
                 });
 
                 bank.AccountHolders.Add(new AccountHolder()

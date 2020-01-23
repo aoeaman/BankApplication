@@ -11,9 +11,9 @@ namespace BankTask
         public string ID { get; set; }
         public string Name { get; set; }
 
-        public List<Employee> Employees=new List<Employee>();
-        public List<AccountHolder> AccountHolders=new List<AccountHolder>();
-        public List<Account> Accounts=new List<Account>();
+        public List<Employee> Employees { get; set; }
+        public List<AccountHolder> AccountHolders { get; set; }
+        public List<Account> Accounts { get; set; }
 
         public Dictionary<ChargeType, decimal> ChargeForSameBank { get; set; }
         public Dictionary<ChargeType, decimal> ChargeForOtherBank { get; set; }

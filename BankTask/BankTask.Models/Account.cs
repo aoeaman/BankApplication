@@ -13,6 +13,6 @@ namespace BankTask
         public decimal Funds { get; set; }
         public string Password { get; internal set; }
 
-        public List<Transaction> Transactions=new List<Transaction>();
+        public List<Transaction> Transactions { get; set; }
     }
 }

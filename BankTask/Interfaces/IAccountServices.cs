@@ -7,7 +7,7 @@ namespace BankTask
 {
     public interface IAccountServices
     {
-        string CreateAccount(Bank bank, string name, string userName, string password);
+        string Create(Bank bank, string name, string userName, string password);
 
         bool DeleteAccount(Bank bank, string userName);
 
