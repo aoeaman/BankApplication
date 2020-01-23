@@ -40,7 +40,7 @@ namespace BankTask
             }
         }
 
-        public bool DeleteAccount(Bank bank,string userName)
+        public bool Delete(Bank bank,string userName)
         {
             AccountHolder holder = bank.AccountHolders.Find(Element => Element.UserName == userName);
             if (holder != null)
@@ -55,7 +55,7 @@ namespace BankTask
             
         }
 
-        public bool UpdateAccount(Bank bank, string userName,string newUserName, string newPassword)
+        public bool Update(Bank bank, string userName,string newUserName, string newPassword)
         {
             AccountHolder Holder = bank.AccountHolders.Find(Element => Element.UserName == userName);
             if (Holder != null)
@@ -70,7 +70,7 @@ namespace BankTask
             }
         }
 
-        public decimal CheckFund(Account userAccount)
+        public decimal GetBalance(Account userAccount)
         {
             return userAccount.Funds;
         }

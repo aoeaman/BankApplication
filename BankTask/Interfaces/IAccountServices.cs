@@ -9,11 +9,11 @@ namespace BankTask
     {
         string Create(Bank bank, string name, string userName, string password);
 
-        bool DeleteAccount(Bank bank, string userName);
+        bool Delete(Bank bank, string userName);
 
-        bool UpdateAccount(Bank bank, string userName, string newUserName, string newPassword);
+        bool Update(Bank bank, string userName, string newUserName, string newPassword);
 
-        decimal CheckFund(Account account);
+        decimal GetBalance(Account account);
 
     }
 }

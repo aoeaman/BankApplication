@@ -27,10 +27,12 @@ namespace BankTask
                         {
                             {ChargeType.RTGS,2 },{ChargeType.IMPS,6}
                         },
-                        Currency = new Dictionary<string, decimal> { { "INR", 1 } },
+                        Currencies=new List<Models.Currency>() ,
                         Accounts = new List<Account>(),
-                        AccountHolders=new List<AccountHolder>()
+                        AccountHolders=new List<AccountHolder>(),
+                        Employees=new List<Employee>()
                     };
+                    bank.Currencies.Add(new Models.Currency {Name="INR",Exchangerate=1 });
                     banks.Add(bank);
                     return true;
                 }
@@ -47,9 +49,9 @@ namespace BankTask
 
         public bool AddCurrency(Bank bank, string name, decimal exchangeValue)
         {
-            if (!bank.Currency.ContainsKey(name))
+            if (!bank.Currencies.Any(Element=>Element.Name==name))
             {
-                bank.Currency.Add(name, exchangeValue);
+                bank.Currencies.Add(new Models.Currency {Name=name,Exchangerate=exchangeValue });
                 return true;
             }
             else

@@ -28,7 +28,7 @@ namespace BankTask
                 Console.WriteLine("2.Create Employee Account");
                 Console.WriteLine("3.Login");
                 Console.WriteLine("4.Exit");
-                SelectedChoice = Tools.InputIntegerOnly();
+                SelectedChoice = Tools.GetIntegerOnly();
                 switch (SelectedChoice)
                 {
                     case 1:
@@ -60,14 +60,14 @@ namespace BankTask
                         }
                         Console.WriteLine("Select Bank:");
                         Banks.ForEach(name => Console.WriteLine(Banks.IndexOf(name) + 1 + ". " + name.Name + " ID: "+ name.ID) );
-                        int SelectedBank = Tools.InputIntegerOnly();
+                        int SelectedBank = Tools.GetIntegerOnly();
                         Console.WriteLine("Enter Name");
                         string Name = Console.ReadLine();
                         Console.WriteLine("Create Username");
                         string Username = Console.ReadLine();
                         Console.WriteLine("Create Passowrd");
                         string Password = Tools.ReadPassword();
-                        bool Status=employeeServices.CreateEmployee(Banks[SelectedBank-1],Name,Username,Password);
+                        bool Status=employeeServices.Create(Banks[SelectedBank-1],Name,Username,Password);
                         if (!Status)
                         {
                             Console.WriteLine("Username Already Exists:");
@@ -86,13 +86,13 @@ namespace BankTask
                         }
                         Console.WriteLine("Select Bank:");
                         Banks.ForEach(name => Console.WriteLine(Banks.IndexOf(name) + 1 + ". " + name.Name));
-                        int Choice = Tools.InputIntegerOnly();
+                        int Choice = Tools.GetIntegerOnly();
                         Bank CurrentBank = Banks[Choice - 1];
                         Console.WriteLine("Enter Your Choice");
                         Console.WriteLine("1.Employee Login");
                         Console.WriteLine("2.Account Holder Login");
 
-                        int choice = Tools.InputIntegerOnly();
+                        int choice = Tools.GetIntegerOnly();
                         Console.WriteLine();
 
                         Console.WriteLine("Username");
@@ -122,7 +122,7 @@ namespace BankTask
                                         Console.WriteLine("8. Logout");
                                         
 
-                                            Option = Tools.InputIntegerOnly();
+                                            Option = Tools.GetIntegerOnly();
                                             switch (Option)
                                             {
                                                     
@@ -158,7 +158,7 @@ namespace BankTask
                                                     Console.WriteLine("Select Operation");
                                                     Console.WriteLine("1.Update account");
                                                     Console.WriteLine("2.Delete account");
-                                                    int SelectedOperation = Tools.InputIntegerOnly();
+                                                    int SelectedOperation = Tools.GetIntegerOnly();
                                                     switch (SelectedOperation)
                                                     {
                                                         case 1:
@@ -167,7 +167,7 @@ namespace BankTask
                                                             string NewUserName = Console.ReadLine();
                                                             Console.WriteLine("Passowrd");
                                                             string NewPassword = Tools.ReadPassword();
-                                                            bool Status = accountService.UpdateAccount(CurrentBank, Username, NewUserName, NewPassword);
+                                                            bool Status = accountService.Update(CurrentBank, Username, NewUserName, NewPassword);
                                                             if (Status)
                                                             {
                                                                 Console.WriteLine("Successfully Updated\nPress any key to continue...");
@@ -182,7 +182,7 @@ namespace BankTask
                                                         }
                                                         case 2:
                                                         {
-                                                            bool Status=accountService.DeleteAccount(CurrentBank, Username);
+                                                            bool Status=accountService.Delete(CurrentBank, Username);
                                                             if (Status)
                                                             {
                                                                 Console.WriteLine("Successfully Deleted\nPress any key to continue...");
@@ -369,7 +369,7 @@ namespace BankTask
                                     "5. Transaction history\n" +
                                     "6. Logout");
                                     
-                                        Option = Tools.InputIntegerOnly();
+                                        Option = Tools.GetIntegerOnly();
                                         switch (Option)
                                         {
                                             case 1:
@@ -380,12 +380,12 @@ namespace BankTask
                                                     
                                                     Console.Clear();
                                                     Console.WriteLine("Enter Amount:");
-                                                    int Amount = Tools.InputIntegerOnly();
+                                                    int Amount = Tools.GetIntegerOnly();
                                                     Console.WriteLine("Enter Currency:");
                                                     string currency = Console.ReadLine().ToUpper();
                                                     try
                                                     {
-                                                        decimal CurrencyRate = CurrentBank.Currency[currency];
+                                                        decimal CurrencyRate = CurrentBank.Currencies.Find(Element => Element.Name == currency).Exchangerate;
                                                         string ID = transactionServices.Deposit(UserAccount, Amount, CurrencyRate);
                                                         Console.WriteLine("Transaction ID :   " + ID + "\nPress any key to Continue...");
                                                         status = false;
@@ -404,7 +404,7 @@ namespace BankTask
                                             {
                                                 Console.Clear();
                                                 Console.WriteLine("Enter Amount:");
-                                                int Amount = Tools.InputIntegerOnly();
+                                                int Amount = Tools.GetIntegerOnly();
                                                 string ID = transactionServices.Withdraw(UserAccount, Amount);
                                                 if (ID == null)
                                                 {
@@ -424,7 +424,7 @@ namespace BankTask
                                                 Console.WriteLine("Enter Account ID of the reciepent");
                                                 string recieverID = Console.ReadLine();
                                                 Console.WriteLine("Enter Amount to Transfer");
-                                                int Amount = Tools.InputIntegerOnly(); ;
+                                                int Amount = Tools.GetIntegerOnly(); ;
                                                 Account RecieverAccount = null;
                                                 ChargeType TypeOfCharge =ChargeType.RTGS;
                                                 if (Amount > 100000)
@@ -460,7 +460,7 @@ namespace BankTask
                                             case 4:
                                             {
                                                 Console.Clear();
-                                                Console.WriteLine(accountService.CheckFund(UserAccount));
+                                                Console.WriteLine(accountService.GetBalance(UserAccount));
                                                 Console.ReadKey();
                                                 break;
                                             }

@@ -8,7 +8,7 @@ namespace BankTask
 {
     public class UtilityTools
     {
-        public int InputIntegerOnly()
+        public int GetIntegerOnly()
         {
             int Choice;
             try
@@ -18,7 +18,7 @@ namespace BankTask
             }
             catch (Exception)
             {
-                return InputIntegerOnly();
+                return GetIntegerOnly();
             }
         }
 

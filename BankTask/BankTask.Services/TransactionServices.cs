@@ -94,8 +94,8 @@ namespace BankTask
         public void RevertWithdraw(Account user, Transaction transaction)
         {
             user.Funds += transaction.Amount;
-            string ID = new TransactionServices().GenerateID(user.BankID, user.ID);
-            new TransactionServices().UpdatingTransactionHistory(ID, user.ID, user, transaction.Amount, TransactionType.Revert, transaction.Charges, transaction.RecieverID);
+            string ID =GenerateID(user.BankID, user.ID);
+            UpdatingTransactionHistory(ID, user.ID, user, transaction.Amount, TransactionType.Revert, transaction.Charges, transaction.RecieverID);
 
         }
 
@@ -126,8 +126,8 @@ namespace BankTask
             {
                 Sender.Funds += transaction.Amount + transaction.Charges;
                 Reciever.Funds -= transaction.Amount;
-                new TransactionServices().UpdatingTransactionHistory(new TransactionServices().GenerateID(Sender.BankID, Sender.ID), Sender.ID, Sender, transaction.Amount, TransactionType.Revert, transaction.Charges, Reciever.ID);
-                new TransactionServices().UpdatingTransactionHistory(new TransactionServices().GenerateID(Reciever.BankID, Reciever.ID), Sender.ID, Reciever, transaction.Amount, TransactionType.Revert, 0, Reciever.ID);
+                UpdatingTransactionHistory(GenerateID(Sender.BankID, Sender.ID), Sender.ID, Sender, transaction.Amount, TransactionType.Revert, transaction.Charges, Reciever.ID);
+                UpdatingTransactionHistory(GenerateID(Reciever.BankID, Reciever.ID), Sender.ID, Reciever, transaction.Amount, TransactionType.Revert, 0, Reciever.ID);
                 return true;
             }
 
