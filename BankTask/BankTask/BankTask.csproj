@@ -102,6 +102,13 @@
       <Project>{9a91114e-e773-4fa2-9d01-e34013468853}</Project>
       <Name>BankTask.Utility</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Interfaces\BankTask.Interfaces.csproj">
+      <Project>{42b7adaf-8927-4a25-add9-882e19c99561}</Project>
+      <Name>BankTask.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

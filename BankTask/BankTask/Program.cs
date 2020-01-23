@@ -11,12 +11,12 @@ namespace BankTask
 
         static void Main(string[] args)
         {
-
+            
             List<Bank> Banks = new List<Bank>();
-            BankServices bankService = new BankServices();
-            TransactionServices transactionServices = new TransactionServices();
-            EmployeeServices employeeServices = new EmployeeServices();
-            AccountServices accountService = new AccountServices();
+            IBankServices bankService = new BankServices();
+            ITransactionService transactionServices = new TransactionServices();
+            IEmployeeService employeeServices = new EmployeeServices();
+            IAccountServices accountService = new AccountServices();
             UtilityTools Tools = new UtilityTools();
             int SelectedChoice = 0;
             while (SelectedChoice!=4)
@@ -44,7 +44,7 @@ namespace BankTask
                         }
                         else
                         {
-                            Console.WriteLine("No Bank Exists \nPlease Proceed to Setup New Bank");
+                            Console.WriteLine("Error Occured (Bank Name Should be atleast 3 characters or bank Already exists) \nPlease Proceed to Setup New Bank");
                             Console.ReadKey();                               
                         }
                         break;

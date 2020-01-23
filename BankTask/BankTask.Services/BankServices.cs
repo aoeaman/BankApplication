@@ -43,7 +43,7 @@ namespace BankTask
             }
             catch (Exception)
             {
-                return Create(banks,bankName);
+                return false;
             }
         }
 
