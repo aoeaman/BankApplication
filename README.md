@@ -3,19 +3,19 @@ A console application that Simulate a bank account which supports creation of ac
 
 Use cases to be taken into consideration while developing the application:
 
-  Setup new Bank
-  
-  Set Default RTGS and IMPS charges for same bank 
+  	Setup new Bank
+ 
+Set Default RTGS and IMPS charges for same bank 
   
     RTGS-0%
     IMPS-5%
-  Set Default RTGS and IMPS charges for other bank 
+Set Default RTGS and IMPS charges for other bank 
   
     RTGS- 2%
     IMPS- 6%
-  Add default accepted currency as INR
+Add default accepted currency as INR
   
-  A page where user will get options to login as account holder or bank staff
+A page where user will get options to login as account holder or bank staff
   
 If User is bank staff then he can perform following actions
 
