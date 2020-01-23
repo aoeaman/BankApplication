@@ -18,16 +18,17 @@ namespace BankTask
             EmployeeServices employeeServices = new EmployeeServices();
             AccountServices accountService = new AccountServices();
             UtilityTools Tools = new UtilityTools();
-
-            while (true)
+            int SelectedChoice = 0;
+            while (SelectedChoice!=4)
             {
+                Console.Clear();
                 Console.WriteLine("-----Welcome to Bank Management System-----");
                 Console.WriteLine("Enter Your Choice");
                 Console.WriteLine("1.Create Bank");
                 Console.WriteLine("2.Create Employee Account");
                 Console.WriteLine("3.Login");
                 Console.WriteLine("4.Exit");
-                int SelectedChoice = Tools.InputIntegerOnly();
+                SelectedChoice = Tools.InputIntegerOnly();
                 switch (SelectedChoice)
                 {
                     case 1:
@@ -496,9 +497,7 @@ namespace BankTask
                             }
                         }
                         break;
-                    }
-                    case 4:
-                    return;
+                    }                    
                 }
             }
         }
