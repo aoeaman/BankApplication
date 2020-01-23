@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BankTask.Models\BankTask.Models.csproj" />
+    <ProjectReference Include="..\BankTask.Utility\BankTask.Utility.csproj" />
+    <ProjectReference Include="..\Interfaces\BankTask.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
