@@ -9,12 +9,12 @@ namespace BankTask
     public interface IBankServices
     {
 
-        bool AddCurrency(Bank bank, string name, decimal exchangeValue);
+        void AddCurrency(Bank bank, Currency newCurrency);
 
         void ChangeChargeSameBank(Bank bank, decimal RTGS, decimal IMPS);
 
         void ChangeChargeOtherBank(Bank bank, decimal RTGS, decimal IMPS);
 
-        bool Create(List<Bank> banks, string bankName);
+        Bank Create(Bank bank,string bankName);
     }
 }

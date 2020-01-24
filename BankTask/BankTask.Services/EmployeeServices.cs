@@ -8,24 +8,10 @@ namespace BankTask
 {
     public class EmployeeServices: IEmployeeService
     {
-        public bool Create(Bank selectedBank,string name,string username,string password)
+        public Employee Create(Employee employee,string name)
         {
-            if (selectedBank.Employees.Any(Element => Element.UserName==username) == false)
-            {
-                selectedBank.Employees.Add(new Employee
-                {
-                    Name = name,
-                    ID = new UtilityTools().GenerateID(name),
-                    Password = password,
-                    UserName = username                   
-                 });
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            employee.ID = new UtilityTools().GenerateID(name);
+            return employee;
         }
 
     }

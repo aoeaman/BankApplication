@@ -7,17 +7,13 @@ namespace BankTask
 {
     class Program
     {
-
-
+        
         static void Main(string[] args)
         {
-            
             List<Bank> Banks = new List<Bank>();
-            IBankServices bankService = new BankServices();
-            ITransactionService transactionServices = new TransactionServices();
-            IEmployeeService employeeServices = new EmployeeServices();
-            IAccountServices accountService = new AccountServices();
+            Operations operations = new Operations();
             UtilityTools Tools = new UtilityTools();
+
             int SelectedChoice = 0;
             while (SelectedChoice!=4)
             {
@@ -36,7 +32,7 @@ namespace BankTask
                         Console.Clear();
                         Console.WriteLine("Enter Bank Name:");
                         string BankName = Console.ReadLine().ToUpper();
-                        bool status=bankService.Create(Banks,BankName);
+                        bool status=operations.CreateBank(Banks,BankName);
                         if (status)
                         {
                             Console.WriteLine("Bank Created");
@@ -67,7 +63,7 @@ namespace BankTask
                         string Username = Console.ReadLine();
                         Console.WriteLine("Create Passowrd");
                         string Password = Tools.ReadPassword();
-                        bool Status=employeeServices.Create(Banks[SelectedBank-1],Name,Username,Password);
+                        bool Status=operations.CreateEmployee(Banks[SelectedBank-1],Name,Username,Password);
                         if (!Status)
                         {
                             Console.WriteLine("Username Already Exists:");
@@ -136,7 +132,7 @@ namespace BankTask
                                                     Console.WriteLine("Create Passowrd");
                                                     string passWord = Tools.ReadPassword();
                                                     Console.WriteLine();
-                                                    string GetUserID = accountService.Create(CurrentBank, Name, Username, passWord);
+                                                    string GetUserID = operations.CreateAccount(CurrentBank, Name, Username, passWord);
                                                     if (GetUserID == null)
                                                     {
                                                         Console.WriteLine("Username Already Exists:");
@@ -167,7 +163,7 @@ namespace BankTask
                                                             string NewUserName = Console.ReadLine();
                                                             Console.WriteLine("Passowrd");
                                                             string NewPassword = Tools.ReadPassword();
-                                                            bool Status = accountService.Update(CurrentBank, Username, NewUserName, NewPassword);
+                                                            bool Status = operations.UpdateAccount(CurrentBank, Username, NewUserName, NewPassword);
                                                             if (Status)
                                                             {
                                                                 Console.WriteLine("Successfully Updated\nPress any key to continue...");
@@ -182,7 +178,7 @@ namespace BankTask
                                                         }
                                                         case 2:
                                                         {
-                                                            bool Status=accountService.Delete(CurrentBank, Username);
+                                                            bool Status=operations.accountService.Delete(CurrentBank, Username);
                                                             if (Status)
                                                             {
                                                                 Console.WriteLine("Successfully Deleted\nPress any key to continue...");
@@ -193,7 +189,7 @@ namespace BankTask
                                                                 Console.WriteLine("No User Found\nPress any key to continue...");
                                                                 Console.ReadLine();
                                                             }
-                                                                    break;
+                                                        break;
                                                         }
                                                     }
                                                     break;
@@ -205,7 +201,7 @@ namespace BankTask
                                                     string Currency = Console.ReadLine().ToUpper();
                                                     Console.WriteLine("Add new Accepted currency exchange rate in INR");
                                                     decimal ExchValue = decimal.Parse(Console.ReadLine());
-                                                    bool status = bankService.AddCurrency(CurrentBank, Currency, ExchValue);
+                                                    bool status = operations.AddCurrency(CurrentBank, Currency, ExchValue);
                                                     if (!status)
                                                     {
                                                         Console.WriteLine("Currency Already Added:\nPress any key to continue...");
@@ -225,7 +221,7 @@ namespace BankTask
                                                     decimal RTGS = decimal.Parse(Console.ReadLine());
                                                     Console.WriteLine("Enter IMPS");
                                                     decimal IMPS = decimal.Parse(Console.ReadLine());
-                                                    bankService.ChangeChargeSameBank(CurrentBank, RTGS, IMPS);
+                                                    operations.bankService.ChangeChargeSameBank(CurrentBank, RTGS, IMPS);
                                                     Console.WriteLine("\nService Charge Updated\nPress any key to continue...");
                                                     Console.ReadKey();
                                                     break;
@@ -237,7 +233,7 @@ namespace BankTask
                                                     decimal RTGS = decimal.Parse(Console.ReadLine());
                                                     Console.WriteLine("Enter IMPS");
                                                     decimal IMPS = decimal.Parse(Console.ReadLine());
-                                                    bankService.ChangeChargeOtherBank(CurrentBank, RTGS, IMPS);
+                                                    operations.bankService.ChangeChargeOtherBank(CurrentBank, RTGS, IMPS);
                                                     Console.WriteLine("\nService Charge Updated\nPress any key to continue");
                                                     Console.ReadKey();
                                                     break;
@@ -254,7 +250,7 @@ namespace BankTask
                                                         Console.ReadKey();
                                                         break;
                                                     }
-                                                    List<Transaction> transactions = transactionServices.TransactionHistory(Account);
+                                                    List<Transaction> transactions = operations.transactionServices.TransactionHistory(Account);
                                                     if (transactions.Count == 0)
                                                     {
                                                         Console.WriteLine("No Transactions found:\nPress any key to Continue...");
@@ -303,7 +299,7 @@ namespace BankTask
                                                     {
                                                         case TransactionType.Deposit:
                                                         {
-                                                            if (!transactionServices.RevertDeposit(user, transaction))
+                                                            if (operations.RevertDeposit(user, transaction)==null)
                                                             {
                                                                 Console.WriteLine("Low Balance\nCannot Revert\npress any key to continue");
                                                                 Console.ReadKey();
@@ -317,14 +313,14 @@ namespace BankTask
                                                         }
                                                         case TransactionType.Withdraw:
                                                         {
-                                                            transactionServices.RevertWithdraw(user,transaction);
+                                                            operations.RevertWithdraw(user,transaction);
                                                             Console.WriteLine("Successfully Reverted \nPress any key to Continue");
                                                             Console.ReadKey();
                                                             break;
                                                         }
                                                         case TransactionType.FundTransfer:
                                                         {
-                                                            if(transactionServices.RevertFundTransfer(Banks, transaction))
+                                                            if(operations.RevertFundTransfer(Banks, transaction))
                                                             {
                                                                 Console.WriteLine("Successfully Reverted \nPress any key to Continue");
                                                                 Console.ReadKey();
@@ -386,7 +382,7 @@ namespace BankTask
                                                     try
                                                     {
                                                         decimal CurrencyRate = CurrentBank.Currencies.Find(Element => Element.Name == currency).Exchangerate;
-                                                        string ID = transactionServices.Deposit(UserAccount, Amount, CurrencyRate);
+                                                        string ID = operations.Deposit(UserAccount, Amount, CurrencyRate);
                                                         Console.WriteLine("Transaction ID :   " + ID + "\nPress any key to Continue...");
                                                         status = false;
                                                         Console.ReadKey();
@@ -405,7 +401,7 @@ namespace BankTask
                                                 Console.Clear();
                                                 Console.WriteLine("Enter Amount:");
                                                 int Amount = Tools.GetIntegerOnly();
-                                                string ID = transactionServices.Withdraw(UserAccount, Amount);
+                                                string ID = operations.Withdraw(UserAccount, Amount);
                                                 if (ID == null)
                                                 {
                                                     Console.WriteLine("Low Balance\nPress any key to Continue");
@@ -451,7 +447,7 @@ namespace BankTask
                                                     Console.ReadKey();
                                                     break;
                                                 }
-                                                transactionServices.FundTransfer(CurrentBank, UserAccount, RecieverAccount, TypeOfCharge, Amount);
+                                                operations.FundTransfer(CurrentBank, UserAccount, RecieverAccount, TypeOfCharge, Amount);
                                                 Console.WriteLine("Transaction Successful :  \nPress any key to Continue");
                                                 Console.ReadKey();
                                                         
@@ -460,14 +456,14 @@ namespace BankTask
                                             case 4:
                                             {
                                                 Console.Clear();
-                                                Console.WriteLine(accountService.GetBalance(UserAccount));
+                                                Console.WriteLine(operations.accountService.GetBalance(UserAccount));
                                                 Console.ReadKey();
                                                 break;
                                             }
                                             case 5:
                                             {
                                                 Console.Clear();
-                                                List<Transaction> transactions = transactionServices.TransactionHistory(UserAccount);
+                                                List<Transaction> transactions = operations.transactionServices.TransactionHistory(UserAccount);
                                                 if (transactions.Count == 0)
                                                 {
                                                     Console.WriteLine("No Transactions found:\nPress any key to Continue...");

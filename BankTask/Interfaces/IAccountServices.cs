@@ -7,11 +7,11 @@ namespace BankTask
 {
     public interface IAccountServices
     {
-        string Create(Bank bank, string name, string userName, string password);
+        Tuple<Account, AccountHolder> Create(Account account, AccountHolder accountHolder, string name);
 
         bool Delete(Bank bank, string userName);
 
-        bool Update(Bank bank, string userName, string newUserName, string newPassword);
+        AccountHolder Update(AccountHolder holder, string newUserName, string newPassword);
 
         decimal GetBalance(Account account);
 

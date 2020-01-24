@@ -8,8 +8,6 @@ namespace BankTask
 {
     public interface IEmployeeService
     {
-        bool Create(Bank selectedBank, string name, string username, string password);
-
-        
+        Employee Create(Employee employee , string name);       
     }
 }

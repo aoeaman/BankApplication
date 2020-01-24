@@ -8,56 +8,15 @@ namespace BankTask
 {
     public class BankServices :IBankServices
     {
-        public bool Create(List<Bank> banks,string bankName)
+        public Bank Create(Bank bank,string bankName)
         {
-            try
-            {
-                
-                if (banks.Any(name => string.Equals(name.Name, bankName)) == false)
-                {
-                    Bank bank = new Bank
-                    {
-                        ID = bankName.Substring(0, 3) + DateTime.UtcNow.ToString("yyyyMMdd"),
-                        Name = bankName,
-                        ChargeForSameBank = new Dictionary<ChargeType, decimal>
-                        {
-                            {ChargeType.RTGS,0 },{ChargeType.IMPS,5}
-                        },
-                        ChargeForOtherBank = new Dictionary<ChargeType, decimal>
-                        {
-                            {ChargeType.RTGS,2 },{ChargeType.IMPS,6}
-                        },
-                        Currencies=new List<Currency>() ,
-                        Accounts = new List<Account>(),
-                        AccountHolders=new List<AccountHolder>(),
-                        Employees=new List<Employee>()
-                    };
-                    bank.Currencies.Add(new Currency {Name="INR",Exchangerate=1 });
-                    banks.Add(bank);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            bank.ID = bankName.Substring(0, 3) + DateTime.UtcNow.ToString("yyyyMMdd");
+            return bank;
         }
 
-        public bool AddCurrency(Bank bank, string name, decimal exchangeValue)
+        public void AddCurrency(Bank bank,Currency newCurrency)
         {
-            if (!bank.Currencies.Any(Element=>Element.Name==name))
-            {
-                bank.Currencies.Add(new Currency {Name=name,Exchangerate=exchangeValue });
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            bank.Currencies.Add(newCurrency);
         }
 
         public void ChangeChargeSameBank(Bank bank, decimal RTGS, decimal IMPS)

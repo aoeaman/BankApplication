@@ -8,36 +8,12 @@ namespace BankTask
 {
     public class AccountServices :IAccountServices
     {
-        public string Create(Bank bank, string name, string userName, string password)
+        public Tuple<Account,AccountHolder> Create(Account account,AccountHolder accountHolder,string name)
         {
-            if (bank.AccountHolders.Exists(Element => string.Equals(Element.UserName, userName)) == false)
-            {
-                string ID = new UtilityTools().GenerateID(name);
-
-                bank.Accounts.Add(new Account()
-                {
-                    BankID = bank.ID.ToUpper(),
-                    ID = ID.ToUpper(),
-                    Funds = 0,
-                    Transactions = new List<Transaction>()
-                });
-
-                bank.AccountHolders.Add(new AccountHolder()
-                {
-                    ID = ID,
-                    Password = password,
-                    UserName = userName,
-                    Name = name,
-                    BankID = bank.ID
-                });
-
-                return ID;
-            }
-            else
-            {
-                return null;
-
-            }
+            string ID = new UtilityTools().GenerateID(name);
+            account.ID = ID.ToUpper();
+            accountHolder.ID = ID.ToUpper();
+            return new Tuple<Account, AccountHolder>(account, accountHolder);
         }
 
         public bool Delete(Bank bank,string userName)
@@ -55,19 +31,11 @@ namespace BankTask
             
         }
 
-        public bool Update(Bank bank, string userName,string newUserName, string newPassword)
-        {
-            AccountHolder Holder = bank.AccountHolders.Find(Element => Element.UserName == userName);
-            if (Holder != null)
-            {
-                Holder.UserName = newUserName;
-                Holder.Password = newPassword;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        public AccountHolder Update(AccountHolder holder,string newUserName, string newPassword)
+        {           
+                holder.UserName = newUserName;
+                holder.Password = newPassword;
+                return holder;          
         }
 
         public decimal GetBalance(Account userAccount)
