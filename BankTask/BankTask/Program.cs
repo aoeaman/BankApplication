@@ -63,6 +63,7 @@ namespace BankTask
                         string Username = Console.ReadLine();
                         Console.WriteLine("Create Passowrd");
                         string Password = Tools.ReadPassword();
+                        Console.WriteLine();
                         bool Status=operations.CreateEmployee(Banks[SelectedBank-1],Name,Username,Password);
                         if (!Status)
                         {
@@ -95,7 +96,7 @@ namespace BankTask
                         string UserName = Console.ReadLine();
                         Console.WriteLine("Passowrd");
                         string Password = Tools.ReadPassword();
-
+                        Console.WriteLine();
                         switch (choice)
                         {
                             case 1:
@@ -163,6 +164,7 @@ namespace BankTask
                                                             string NewUserName = Console.ReadLine();
                                                             Console.WriteLine("Passowrd");
                                                             string NewPassword = Tools.ReadPassword();
+                                                            Console.WriteLine();
                                                             bool Status = operations.UpdateAccount(CurrentBank, Username, NewUserName, NewPassword);
                                                             if (Status)
                                                             {
